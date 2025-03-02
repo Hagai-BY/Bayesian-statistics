@@ -1,0 +1,43 @@
+# Data files
+*.csv
+*.xlsx
+*.xls
+*.rds
+*.RData
+
+# R specific
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rapp.history
+.Rsession
+.Rproj
+
+# Stan compilation files
+*.rda
+*.o
+*.so
+*.dll
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Results (optional - remove if you want to track results)
+# results/
+
+# Large output files
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.html
