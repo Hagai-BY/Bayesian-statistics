@@ -2,14 +2,19 @@
 
 This project employs Bayesian models (using **Stan** and **R**) to analyze and compare different models predicting daily stock returns based on economic indicators.
 
+---
+
 ## **Project Structure**
-
-```r
-
 bayesian-return-modeling/ ├── data/ │ └── rate_parameters_complete.csv # Input data file ├── models/ │ ├── model_1.stan # First Bayesian model │ ├── model_2.stan # Second Bayesian model │ └── prior_model.stan # Prior predictive model ├── src/ │ └── final_work.R # R script for running the models ├── results/ │ ├── figures/ # Output plots and visualizations │ └── tables/ # Summary tables ├── README.md └── .gitignore
 
+yaml
+Copy
+Edit
+
+---
 
 ## **Installation and Dependencies**
+
 ### **Prerequisites**
 To run this project, you need:
 - **R (version 4.0 or later)**
@@ -22,7 +27,7 @@ Running the Analysis
 Ensure the dataset rate_parameters_complete.csv is in the data/ directory.
 Run the script src/final_work.R in RStudio or the R environment.
 Model Descriptions
-The project compares two Bayesian linear regression models:
+This project compares two Bayesian linear regression models:
 
 Model 1 (Full Model)
 A regression model using the following predictors:
@@ -51,6 +56,7 @@ These metrics help determine which model provides a better predictive fit.
 Posterior Predictive Checks (PPC)
 Posterior predictive distributions are generated for each model.
 Visual checks include:
+
 Density plots of simulated vs. observed data.
 Model residual diagnostics.
 Key Findings
