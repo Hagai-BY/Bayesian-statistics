@@ -7,18 +7,31 @@ This project employs Bayesian models (using **Stan** and **R**) to analyze and c
 ## **Project Structure**
 bayesian-return-modeling/
 ├── data/
+
 │└── rate_parameters_complete.csv # Input data file 
+
 ├── models/ 
+
 │ ├── model_1.stan # First Bayesian model 
+
 │ ├── model_2.stan # Second Bayesian model 
+
 │ └── prior_model.stan # Prior predictive model 
+
 ├── 
+
 src/
+
 │ └── final_work.R # R script for running the models
+
 ├── results/ 
+
 │ ├── figures/ # Output plots and visualizations 
+
 │ └── tables/ # Summary tables 
+
 ├── README.md 
+
 └── .gitignore
 
 ---
