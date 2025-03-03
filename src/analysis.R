@@ -5,6 +5,7 @@
 # regression models for predicting daily returns
 # based on economic indicators
 #################################################
+install.packages("rstudioapi")
 
 # Load required libraries
 library(rstan)
@@ -49,12 +50,14 @@ model_1 <- stan_model('models/model_1.stan')
 
 # Run MCMC sampling for Model 1
 fit_m1 <- sampling(model_1,
-                   data = stan_data_m1,
-                   iter = 5000,
-                   cores = 4,
-                   warmup = 1500,
-                   chains = 10,
-                   seed = 123)
+                  data   = stan_data_m1,
+                  iter   = 5000,
+                  warmup = 1500,
+                  chains = 10,
+                  seed   = 123
+)
+
+
 
 # Check convergence diagnostics for Model 1
 summary_fit_m1 <- summary(fit_m1)
@@ -119,7 +122,6 @@ model_2 <- stan_model('models/model_2.stan')
 fit_m2 <- sampling(model_2, 
                    data = stan_data_m2, 
                    chains = 10,
-                   cores = 4,
                    iter = 5000, 
                    warmup = 1500, 
                    seed = 123)
@@ -182,12 +184,13 @@ model_prior_m2 <- stan_model('models/prior_model.stan')
 
 # Sample from prior
 fit_prior_m2 <- sampling(model_prior_m2,
-                         data = stan_data_prior_m2,
-                         chains = 4,
-                         cores = 4,
-                         iter = 5000,
-                         warmup = 3000,
-                         seed = 123)
+                 data = stan_data_prior_m2,
+                  chains = 4,
+                  iter = 5000,
+                  warmup  = 3000,
+                  seed = 123,
+)
+
 
 # Extract parameters for prior predictive checks
 params_prior_m2 <- as_draws_rvars(fit_prior_m2) |>
@@ -272,12 +275,13 @@ print(bf_comparison)
 # Save comparison results
 comparison_results <- data.frame(
   Model = c("Model 1 (Full)", "Model 2 (Reduced)"),
-  WAIC = c(waic_m1$estimates["waic", "Estimate"], 
-           waic_m2$estimates["waic", "Estimate"]),
-  LOO = c(loo_m1$estimates["looic", "Estimate"], 
-          loo_m2$estimates["looic", "Estimate"]),
-  BF = c(1, as.numeric(bf_comparison))
+  WAIC  = c(waic_m1$estimates["waic", "Estimate"], 
+            waic_m2$estimates["waic", "Estimate"]),
+  LOO   = c(loo_m1$estimates["looic", "Estimate"], 
+            loo_m2$estimates["looic", "Estimate"]),
+  BF    = c(1, as.numeric(bf_comparison)[1])
 )
+
 
 # Save comparison table
 write.csv(comparison_results, "results/tables/model_comparison.csv", row.names = FALSE)
@@ -374,8 +378,8 @@ ppd_density_plot <- ggplot(data.frame(y_rep_value_m2 = as.vector(PPD_m2_matrix))
   geom_density(fill = "blue", alpha = 0.5) +
   geom_vline(xintercept = 0, color = "red", linetype = "dashed") +
   labs(title = "Posterior PPD - Percentage Yield - Model 2",
-       subtitle = paste0("Positive return probability: ", round(prob_above_0_m2, 2), 
-                         ", Negative return probability: ", round(prob_below_0_m2, 2)),
+       subtitle = paste0("Positive return probability: ", round(prob_above_0_m2, 3), 
+                         ", Negative return probability: ", round(prob_below_0_m2, 3)),
        x = "Percentage Yield", 
        y = "Density") +
   theme_minimal() +
@@ -397,7 +401,6 @@ cat("Model comparison suggests:",
            "Model 1 (full model) is preferred"), 
     "based on WAIC and LOO metrics.\n")
 
-cat("The probability of positive returns is", round(prob_above_0_m2, 2), "\n")
-cat("The probability of negative returns is", round(prob_below_0_m2, 2), "\n")
+cat("The probability of positive returns is", round(prob_above_0_m2, 3), "\n")
+cat("The probability of negative returns is", round(prob_below_0_m2, 3), "\n")
 
-cat("\nAnalysis complete. Results saved to the '
