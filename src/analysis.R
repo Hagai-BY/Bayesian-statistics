@@ -5,7 +5,6 @@
 # regression models for predicting daily returns
 # based on economic indicators
 #################################################
-install.packages("rstudioapi")
 
 # Load required libraries
 library(rstan)
